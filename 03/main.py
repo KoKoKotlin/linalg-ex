@@ -36,7 +36,7 @@ def main():
     xs = mat["x"]
     ys = mat["y"]
     
-    ex41(xs, ys)
+    # ex41(xs, ys)
     ex42(xs, ys)
 
 def ex42(xs, ys):
@@ -49,10 +49,11 @@ def ex42(xs, ys):
     model.add(keras.layers.Dense(64))
     model.add(keras.layers.Dense(1))
 
-    model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.1), loss="mean_absolute_error")
+    model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.01), loss="mean_absolute_error")
 
-    model.fit(xs, ys, epochs=5, batch_size=10, validation_split=0.2)
-    pxs = np.array([[0.0], [3.5]])
+    model.fit(xs, ys, epochs=10, batch_size=10, validation_split=0.2)
+    pxs = np.arange(0.0, 4.0, .1).reshape((40, 1))
+
     pys = model.predict(pxs)
     
     pys_ = []
@@ -60,7 +61,7 @@ def ex42(xs, ys):
         pys_.append(y[0][0])
     
     plt.scatter(xs, ys)
-    plt.plot([0.0, 3.5], pys_, color="r")
+    plt.scatter(pxs, pys_, color="r")
     plt.show()
 
 if __name__ == "__main__":
